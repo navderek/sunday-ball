@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Sunday Ball">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Sunday Ball</title>
+<!-- The group's name and logo letters. A deployment's own (wrangler.toml [vars], see src/brand.js) replace these. -->
+<meta name="application-name" content="Sunday Ball">
+<meta name="logo-text" content="SB">
+<meta name="theme-color" content="#0A111D">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/styles.css">
+<script>
+  // Apply a saved light/dark choice before the page paints, so it doesn't flash.
+  try { const t = localStorage.getItem("sb-theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+</head>
+<body>
+<div class="intro" id="intro-cover" aria-hidden="true"><img class="intro-splash" src="/icon-512.png" alt=""></div>
+<div class="app" id="app">
+  <header class="topbar">
+    <a class="brand" href="#sunday" aria-label="Sunday Ball">
+      <svg class="wordmark" viewBox="0 0 204 40" role="img" aria-hidden="true">
+        <text class="wm-name" x="49" y="20" text-anchor="middle" textLength="94" lengthAdjust="spacingAndGlyphs">SUNDAY</text>
+        <path class="wm-line" d="M0 26h98"/>
+        <path class="wm-line" d="M37 26a12 12 0 0 0 24 0" fill="none"/>
+        <circle class="wm-dot" cx="49" cy="26" r="3.2"/>
+        <text class="wm-sub" x="106" y="22">BALL</text>
+      </svg>
+    </a>
+    <div class="topright">
+      <button class="themebtn" id="theme-btn" data-act="theme" aria-label="Switch light or dark mode"></button>
+      <button class="avatar mebtn" id="me-av" data-act="me-open" aria-label="My details" hidden></button>
+    </div>
+  </header>
+  <main class="screen" id="screen"><p class="empty">Loading…</p></main>
+  <nav class="nav" id="nav" hidden></nav>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div id="modal"></div>
+</div>
+<script src="/app.js" type="module"></script>
+</body>
+</html>

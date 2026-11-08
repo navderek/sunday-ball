@@ -1,0 +1,36 @@
+# Copy this file to wrangler.toml and fill in your own values (wrangler.toml is gitignored).
+name = "sunday-ball"
+main = "src/worker.js"
+compatibility_date = "2026-10-01"
+
+# The app's pages are static files in ./public. Only the API, personal sign-in links
+# (/p/<code>), the Twilio webhook and calendar files go through the Worker code.
+[assets]
+directory = "./public"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+# "/", the manifest and the icons too, so a deployment's own name and icons (src/brand.js) show.
+run_worker_first = ["/api/*", "/p/*", "/hooks/*", "/cal/*", "/__scheduled", "/", "/index.html", "/manifest.webmanifest",
+  "/icon-192.png", "/icon-512.png", "/apple-touch-icon.png", "/favicon-32.png"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "sunday-ball"
+database_id = "YOUR-D1-DATABASE-ID"   # from: npx wrangler d1 create sunday-ball
+migrations_dir = "migrations"
+
+# Runs every 15 minutes. The code works out local time itself (TZ in src/time.js), so daylight
+# saving changes don't shift the schedule.
+[triggers]
+crons = ["*/15 * * * *"]
+
+# Text messages through Twilio (optional). These are Cloudflare secrets, never stored here:
+#   npx wrangler secret put TWILIO_ACCOUNT_SID
+#   npx wrangler secret put TWILIO_AUTH_TOKEN
+#   npx wrangler secret put TWILIO_SMS_FROM      (the Twilio number texts come from, e.g. +16135550123)
+[vars]
+APP_URL = "https://your-app.your-subdomain.workers.dev"
+# Your group's name and logo (optional; the app says "Sunday Ball" with SB otherwise):
+# GROUP_NAME = "Riverside Sunday Ball"     texts, calendar events, page title, link previews
+# WORDMARK = "RIVERSIDE / SUNDAY BALL"     the two lines of the logo at the top of the app
+# LOGO_TEXT = "RS"                         the letters in the tip-off intro (two work best)

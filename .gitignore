@@ -1,0 +1,9 @@
+.claude/
+.dev.vars
+node_modules/
+private/
+roster.csv
+.secrets.json
+.seed/
+.wrangler/
+wrangler.toml

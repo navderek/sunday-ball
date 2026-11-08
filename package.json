@@ -1,0 +1,22 @@
+{
+  "name": "sunday-ball",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --test-scheduled",
+    "db:migrate:local": "wrangler d1 migrations apply DB --local",
+    "db:migrate:remote": "wrangler d1 migrations apply DB --remote",
+    "seed:local": "node scripts/seed.mjs --reset && wrangler d1 execute DB --local --file .seed/seed.sql",
+    "test": "node --test test/",
+    "deploy": "npm test && wrangler d1 migrations apply DB --remote && wrangler deploy",
+    "seed:demo": "node scripts/seed.mjs roster.sample.csv --reset --demo && wrangler d1 execute DB --local --file .seed/seed.sql"
+  },
+  "devDependencies": {
+    "wrangler": "4.152.0"
+  },
+  "description": "Weekly sign-up app for a pickup basketball group: full-timer priority, drop-in waitlist, text reminders. Cloudflare Workers + D1.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.13"
+  }
+}
